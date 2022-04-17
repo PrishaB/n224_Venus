@@ -6,6 +6,8 @@ from __init__ import app
 # from api.webapi import app_api
 from cruddy.app_crud import app_crud
 from cruddy.app_crud_api import app_crud_api
+from cruddy.app_wish import app_wish
+from cruddy.app_wish_api import app_wish_api
 # from frontend.frontend import app_frontend
 # from y2022 import app_y2022
 
@@ -14,6 +16,8 @@ from cruddy.app_crud_api import app_crud_api
 # app.register_blueprint(app_api)
 app.register_blueprint(app_crud)
 app.register_blueprint(app_crud_api)
+app.register_blueprint(app_wish)
+app.register_blueprint(app_wish_api)
 # app.register_blueprint(app_frontend)
 # app.register_blueprint(app_y2022)
 

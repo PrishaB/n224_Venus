@@ -15,7 +15,7 @@
     <a class="btn btn-danger" href={{ url_for('wish.wish_login') }}>Logout</a>
     <div class="container py-4">
         <header class="pb-3 mb-4 border-bottom border-primary text-dark">
-            <span class="fs-4">SQL CRUD Admin Page</span>
+            <span class="fs-4">User Wish List</span>
         </header>
     </div>
     <div class="container py-4 text-light bg-success">
@@ -40,11 +40,9 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Password</th>
-                                <th>Phone</th>
+                                <th>Item Number</th>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -54,14 +52,10 @@
                                 Prepare table for display
                                     caution: phone number needs "~" format step to force type to string
                                 -->
-                                {% set pn = "" ~ row['phone'] %}
-                                {% set pnf = "(" ~ pn[0:3] ~ ")" ~ pn[3:6] ~ "-" ~ pn[6:10] %}
                                 <tr>
-                                    <td>{{ row['userID'] }}</td>
+                                    <td>{{ row['num'] }}</td>
                                     <td>{{ row['name'] }}</td>
-                                    <td>{{ row['email'] }}</td>
-                                    <td>{{ row['password'] | truncate(20) }}</td>
-                                    <td>{{ pnf }}</td>
+                                    <td>{{ row['quantity'] }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -80,18 +74,16 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th><label for="name">Name</label></th>
-                            <th><label for="email">Email</label></th>
-                            <th><label for="password">Password</label></th>
-                            <th><label for="phone">Phone</label></th>
+                      <!--      <th><label for="num">Item Number</label></th> -->
+                            <th><label for="name">Item Name</label></th>
+                            <th><label for="quantity">Quantity</label></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td><input type="text" name="name" id="name" required></td>
-                            <td><input type="email" name="email" id="email" placeholder="abc@xyz.org" required></td>
-                            <td><input type="password" name="password" id="password" required></td>
-                            <td><input type="tel" name="phone" id="phone" pattern="[0-9]{10}" placeholder="1234567890" required></td>
+                            <td><input type="text" name="quantity" id="quantity" required></td>
                             <td><input type="submit" value="Create"></td>
                         </tr>
                         </tbody>
@@ -111,13 +103,13 @@
                         <h2>Read</h2>
                         <form method="POST" ID="read" action={{url_for('wish.read')}} >
                             <table id="read_table">
-                                <tr><th><label for="read_userid">ID</label></th></tr>
+                                <tr><th><label for="read_num">ID</label></th></tr>
                                 <tr>
                                     <td>
-                                        <select name="userid" id="read_userid">
-                                            <optgroup label="userid">
+                                        <select name="num" id="read_num">
+                                            <optgroup label="num">
                                                 {% for row in table %}
-                                                    <option label="{{ row['userID'] }}">{{ row['userID'] }}</option>
+                                                    <option label="{{ row['num'] }}">{{ row['num'] }}</option>
                                                 {% endfor %}
                                             </optgroup>
                                         </select>
@@ -137,20 +129,20 @@
                         <form method="POST" ID="update" action={{url_for('wish.update')}} >
                             <table id="update_table">
                                 <tr>
-                                    <th><label for="update_userid">ID</label></th>
-                                    <th><label for="update_name">Name</label></th>
+                                    <th><label for="update_num">Item Number</label></th>
+                                    <th><label for="update_name">Item Name</label></th>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <select name="userid" id="update_userid">
-                                            <optgroup label="userid">
+                                        <select name="num" id="update_userid">
+                                            <optgroup label="num">
                                                 {% for row in table %}
-                                                    <option label="{{ row['userID'] }}">{{ row['userID'] }}</option>
+                                                    <option label="{{ row['num'] }}">{{ row['num'] }}</option>
                                                 {% endfor %}
                                             </optgroup>
                                         </select>
                                     </td>
-                                    <td><input type="text" name="name" id="update_name" required></td>
+                                    <td><input type="text" name="name" id="name" required></td>
                                     <td><input type="submit" value="Update"></td>
                                 </tr>
                             </table>
@@ -163,13 +155,13 @@
                         <h2>Delete</h2>
                         <form method="POST" ID="read" action={{url_for('wish.delete')}} >
                             <table id="read_table">
-                                <tr><th><label for="delete_userid">ID</label></th></tr>
+                                <tr><th><label for="delete_num">Item Number</label></th></tr>
                                 <tr>
                                     <td>
-                                        <select name="userid" id="delete_userid">
-                                            <optgroup label="userid">
+                                        <select name="num" id="delete_num">
+                                            <optgroup label="num">
                                                 {% for row in table %}
-                                                    <option label="{{ row['userID'] }}">{{ row['userID'] }}</option>
+                                                    <option label="{{ row['num'] }}">{{ row['num'] }}</option>
                                                 {% endfor %}
                                             </optgroup>
                                         </select>

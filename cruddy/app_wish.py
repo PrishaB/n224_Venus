@@ -23,7 +23,7 @@ app_wish = Blueprint('wish', __name__,
 @login_required  # Flask-Login uses this decorator to restrict acess to logged in users
 def wish():
     """obtains all Users from table and loads Admin Form"""
-    return render_template("wish.html", table=users_all())
+    return render_template("wish.html", table=wishlist_all())
 
 
 # Flask-Login directs unauthorised users to this unauthorized_handler
@@ -68,11 +68,9 @@ def wish_authorize():
 def create():
     """gets data from form and add it to Users table"""
     if request.form:
-        po = Users(
+        po = WishList(
             request.form.get("name"),
-            request.form.get("email"),
-            request.form.get("password"),
-            request.form.get("phone")
+            request.form.get("quantity")
         )
         po.create()
     return redirect(url_for('wish.wish'))
@@ -81,11 +79,11 @@ def create():
 # CRUD read
 @app_wish.route('/read/', methods=["POST"])
 def read():
-    """gets userid from form and obtains corresponding data from Users table"""
+    """gets Item Number from form and obtains corresponding data from WishList table"""
     table = []
     if request.form:
-        userid = request.form.get("userid")
-        po = user_by_id(userid)
+        num = request.form.get("num")
+        po = wishlist_by_id(num)
         if po is not None:
             table = [po.read()]  # placed in list for easier/consistent use within HTML
     return render_template("wish.html", table=table)
@@ -96,9 +94,9 @@ def read():
 def update():
     """gets userid and name from form and filters and then data in  Users table"""
     if request.form:
-        userid = request.form.get("userid")
+        num = request.form.get("num")
         name = request.form.get("name")
-        po = user_by_id(userid)
+        po = wishlist_by_id(num)
         if po is not None:
             po.update(name)
     return redirect(url_for('wish.wish'))
@@ -109,8 +107,8 @@ def update():
 def delete():
     """gets userid from form delete corresponding record from Users table"""
     if request.form:
-        userid = request.form.get("userid")
-        po = user_by_id(userid)
+        num = request.form.get("num")
+        po = wishlist_by_id(num)
         if po is not None:
             po.delete()
     return redirect(url_for('wish.wish'))

@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, url_for, redirect, jsonif
 from flask_login import login_required
 
 from cruddy.query import *
+import ctypes
 
 # blueprint defaults https://flask.palletsprojects.com/en/2.0.x/api/#blueprint-objects
 app_crud = Blueprint('crud', __name__,
@@ -39,9 +40,10 @@ def crud_login():
     # obtains form inputs and fulfills login requirements
     if request.form:
         email = request.form.get("email")
+        user_name = request.form.get("user_name")
         password = request.form.get("password")
         if login(email, password):       # zero index [0] used as email is a tuple
-            return redirect(url_for('crud.crud'))
+            return redirect(url_for("crud.crud"))
 
     # if not logged in, show the login page
     return render_template("login.html")
@@ -58,6 +60,9 @@ def crud_authorize():
         password1 = request.form.get("password1")
         password2 = request.form.get("password1")           # password should be verified
         if authorize(user_name, email, password1):    # zero index [0] used as user_name and email are type tuple
+            # if password1 != password2:
+            #     ctypes.windll.user32.MessageBoxW(0, "Please type the same password!", "Message!", 1)
+            #     return render_template("authorize.html")
             return redirect(url_for('crud.crud_login'))
     # show the auth user page if the above fails for some reason
     return render_template("authorize.html")

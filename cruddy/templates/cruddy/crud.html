@@ -14,11 +14,34 @@
 {% block content %}
     <a class="btn btn-danger" href={{ url_for('crud.crud_login') }}>Logout</a>
     <div class="container py-4">
-        <header class="pb-3 mb-4 border-bottom border-primary text-dark">
+        <header class="pb-3 mb-4 border-bottom border-secondary text-sm-center">
             <span class="fs-4">SQL CRUD Admin Page</span>
         </header>
+        <style>
+            :root{
+                --white: whitesmoke;
+                --black: black;
+                --grey: grey;
+            }
+
+            html, body{
+                margin: 0;
+                height: 100%;
+                overflow: auto;
+                animation: fadein 2s;
+                -moz-animation: fadein 2s; /* Firefox */
+                -webkit-animation: fadein 2s; /* Safari and Chrome */
+                -o-animation: fadein 2s; /* Opera */
+                color: var(--white);
+                font-family: Papyrus;
+                animation-name: example;
+                animation-duration: 4s;
+                animation-iteration-count: infinite;
+            }
+        </style>
+
     </div>
-    <div class="container py-4 text-light bg-success">
+    <div class="container py-4 text-dark bg-success">
 
         <div class="container bg-secondary py-4">
             <div class="p-5 mb-4 bg-light text-dark rounded-3">

@@ -38,9 +38,9 @@ def unauthorized():
 def wish_login():
     # obtains form inputs and fulfills login requirements
     if request.form:
-        email = request.form.get("email")
-        password = request.form.get("password")
-        if login(email, password):       # zero index [0] used as email is a tuple
+        username = request.form.get("Username")
+        wish = request.form.get("Wish")
+        if login(username, wish):       # zero index [0] used as email is a tuple
             return redirect(url_for('wish.wish'))
 
     # if not logged in, show the login page
@@ -69,8 +69,8 @@ def create():
     """gets data from form and add it to Users table"""
     if request.form:
         po = Users(
-            request.form.get("name"),
-            request.form.get("email"),
+            request.form.get("Username"),
+            request.form.get("Wish"),
             request.form.get("password"),
             request.form.get("phone")
         )
